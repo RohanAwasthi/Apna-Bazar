@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navbar = ({onshow,addshow}) => {
+const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbar bg-dark" data-bs-theme="dark">
   <div className="container-fluid mynav">
@@ -8,7 +8,7 @@ const Navbar = ({onshow,addshow}) => {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#" onClick={onshow} >{addshow ?'CloseProduct':'AddProducts'}</a>
+          <a className="nav-link active" aria-current="page" href="#"> </a>
         </li>
       </ul>
       <form className="d-flex" role="search">

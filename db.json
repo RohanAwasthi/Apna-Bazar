@@ -1,0 +1,34 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "text": "Mobile",
+      "day": "Samsung,Iphone,Redmi",
+      "reminder": true
+    },
+    {
+      "id": 2,
+      "text": "Laptop",
+      "day": "Dell,HP",
+      "reminder": true
+    },
+    {
+      "id": 3,
+      "text": "Clothes",
+      "day": "Men,Women,Children",
+      "reminder": false
+    },
+    {
+      "id": 4,
+      "text": "Accesories",
+      "day": "earphones,ps5",
+      "reminder": true
+    },
+    {
+      "text": "hdabsd",
+      "day": "djkfbf",
+      "reminder": "",
+      "id": 5
+    }
+  ]
+}

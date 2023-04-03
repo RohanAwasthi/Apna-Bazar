@@ -1,46 +1,37 @@
 import React from 'react'
-import { useState } from "react"
+
 import './App.css';
 import Header from './components/Header';
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
 import Navbar from './Navbar'; 
-import ImageAndTextExample from './components/Image';
+
+import { useState,useEffect} from "react"
 
 
 function App() {
 
   const [showAddTask, setShowAddTask] = useState(false);
-  const [addshow, setaddshow] = useState(false)
-  const [tasks, setTasks] = useState([
+ // const [addshow, setaddshow] = useState(false)
+  const [tasks, setTasks] = useState([])
 
-    {
-      
-        id:1,
-        text: 'Mobile Phone',
-        day: 'Iphone,Samsung,Redmi',
-        reminder: true
-    },
-    {
-        id:2,
-        text: 'Food',
-        day: 'Grains,Bevarages,Dairy Products',
-        reminder: true
-    },
-    {
-        id:3,
-        text: 'Electronics',
-        day: 'Laptop,Earphones,Speakers',
-        reminder: false
-    },
-    {
-        id:4,
-        text: 'clothes',
-        day: 'Mens ,Women',
-        reminder: true
+    useEffect(() => {
+      const getTasks = async () => {
+        const dataFromServer = await fetchTasks()
+        setTasks(dataFromServer)
+      }
+    
+      getTasks()
+    }, [])
+    
+    const fetchTasks = async () => {
+      const res = await fetch('http://localhost:5000/tasks');
+      const data = await res.json();
+      return data;
     }
+    
 
-])
+
 
 
   // task reminder 
@@ -55,25 +46,36 @@ function App() {
   }
 
   // add task
-  const addTask = (task) => {
-     const id = Math.floor(Math.random()*10000+1);
-     console.log(id);
+     const addTask = async (task) => {
 
-     const newTask = { id, ...task}
-     setTasks([...tasks, newTask])
+    const res = await fetch('http://localhost:5000/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(task)
+    } )
+  
+    const data = await res.json()
+    setTasks([...tasks, data])
   }
   
 
 
   // delete task
-  const deleteTask = (id) => {
-    // updating the state...which excludes item whose id is passed
-      setTasks(tasks.filter((task) => task.id !== id))
-  }
+  const deleteTask = async (id) => {
 
-  const show=()=>{
-    setaddshow(!addshow)
-      }
+    await fetch(`http://localhost:5000/tasks/${id}`,{
+      method: 'DELETE'
+    })
+
+  // updating the state...which excludes item whose id is passed
+    setTasks(tasks.filter((task) => task.id !== id))
+}
+
+  //const show=()=>{
+   // setaddshow(!addshow)
+    //  }
     
 
   return (
@@ -83,7 +85,7 @@ function App() {
       <Header onAdd={ () => setShowAddTask(!showAddTask)}/>
       
       {showAddTask && <AddTask onAdd={addTask}/>}
-      <Navbar onshow={show} addshow={addshow}/>
+      <Navbar />
       
       {tasks.length > 0 ? 
       <Tasks 
@@ -94,7 +96,7 @@ function App() {
       : 'No Tasks Available for Today'}
   </div>
   );
-}
-
+      }
+    
 export default App;
 
