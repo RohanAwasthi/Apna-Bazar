@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
 import Navbar from './Navbar'; 
+import ImageAndTextExample from './components/Image';
 
 
 function App() {
@@ -82,7 +83,7 @@ function App() {
       <Header onAdd={ () => setShowAddTask(!showAddTask)}/>
       
       {showAddTask && <AddTask onAdd={addTask}/>}
-      
+      <Navbar onshow={show} addshow={addshow}/>
       
       {tasks.length > 0 ? 
       <Tasks 
